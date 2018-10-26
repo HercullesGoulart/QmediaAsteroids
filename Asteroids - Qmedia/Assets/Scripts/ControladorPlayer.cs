@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ControladorPlayer : MonoBehaviour
 {
     //cria o shot
     public GameObject shot;
+    //ativar e destivar shot
+    public GameObject shotEnable;
+    //ativar painel de gameover
+    public GameObject gameOverpainel;
     //rigid body do player
     public Rigidbody2D body;
     //propulsao lateral do player
@@ -26,14 +32,31 @@ public class ControladorPlayer : MonoBehaviour
     public float fimTelaInf;
     //velocidade do shot
     public float shotForce;
-    //ativar e destivar shot
-    public GameObject shotEnable;
-
+    //se bater no asteroide
+    public float Astforce;
+    //score do player
+    public int score;
+    //vidas do player
+    public int vidas;
+    //texto de pontuacao
+    public Text scoreText;
+    //texto de vidas
+    public Text vidasText;
+    //audio player
+    public AudioSource perdeVida;
+    //hyperspace ativado ou nao
+    private bool hyperspace;
+    
+    
 
     // Use this for initialization
     void Start()
     {
+        score = 0;
+        vidas = 250;
 
+        scoreText.text = "Score " + score;
+        vidasText.text = "Vidas " + vidas;
     }
 
     // Update is called once per frame
@@ -50,13 +73,37 @@ public class ControladorPlayer : MonoBehaviour
             GameObject novoShot = Instantiate(shot, transform.position, transform.rotation);
             novoShot.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * shotForce);
             //shot desaparece e reutiliza
+            if (transform.position.y > fimTelaSup)
+            {
+                shotEnable.SetActive(false);
+                Debug.Log("saiu o tiro");
+            }
+            if (transform.position.y < fimTelaInf)
+            {
+                shotEnable.SetActive(false);
+            }
+            if (transform.position.x > fimTelaEsq)
+            {
+                shotEnable.SetActive(false);
+            }
+            if (transform.position.x < fimTelaDir)
+            {
+                shotEnable.SetActive(false);
+            }
             
+
+        }
+        if (Input.GetButtonDown("Hyperspace") && !hyperspace)
+        {
+            hyperspace = true;
+            //desligar colliders e desativar player
+            Invoke("Hyperspace", 1f);
         }
 
         //fazer a rotacao da nave
         transform.Rotate(Vector3.forward * InputLateral * Time.deltaTime * propulsaolateral);
-
         //criando nova posicao caso o player passe o limite
+
         Vector2 novaPos = transform.position;
         //se o player sumir do limite superior
         if (transform.position.y > fimTelaSup)
@@ -80,11 +127,64 @@ public class ControladorPlayer : MonoBehaviour
 
 
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //arrasto do player para direcao que estava
         body.AddRelativeForce(Vector2.up * InputPropulsao);
         // giro do player
-        body.AddTorque(-InputLateral);
+        //body.AddTorque(-InputLateral);
+    }
+    void ScorePoints(int pointsToAdd)
+    {
+        score += pointsToAdd;
+        scoreText.text = "Score " + score;
+    }
+    void Hyperspace()
+    {
+        Vector2 newPosition = new Vector2(Random.Range(-8, +8), Random.Range(-5, 5));
+        transform.position = newPosition;
+        //ativar collider e objeto aqui
+
+
+
+    }
+    void PerderVida()
+    {
+        vidas--;
+        vidasText.text = "Vidas " + vidas;
+
+        if (vidas <= 0)
+        {
+            //fim de jogo
+            GameOver();
+        }
+    }
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        perdeVida.Play();
+        if(col.relativeVelocity.magnitude > Astforce)
+        {
+            PerderVida();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Alienshot"))
+        {
+            PerderVida();
+        }
+    }
+    void GameOver()
+    {
+        //aparecer a tela para reiniciar
+        gameOverpainel.SetActive(true);
+    }
+    public void JogarNovamente()
+    {
+        SceneManager.LoadScene("QmediaAsteroids");
+    }
+    public void Menu()
+    {
+
     }
 }

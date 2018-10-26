@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
     //linkar asteroid
     public GameObject asteroid;
     //linkar alien
-    public GameObject alien;
+    public AlienControlador alien;
+
+
 
     public void UpdateQtdAsteroides(int change)
     {
@@ -35,5 +37,18 @@ public class GameManager : MonoBehaviour {
             Instantiate(asteroid, spawnPosition, Quaternion.identity);
             qtdAsteroides++;
         }
+        //linkar o alien
+        alien.NewLevel();
+
+    }
+    //verifica a maior pontuacao
+    public bool CheckforHighScores(int score)
+    {
+        int atualHighScore = PlayerPrefs.GetInt("highScore");
+        if(score > atualHighScore)
+        {
+            return true;
+        }
+        return false;
     }
 }

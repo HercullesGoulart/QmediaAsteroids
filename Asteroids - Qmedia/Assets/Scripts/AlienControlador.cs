@@ -12,10 +12,14 @@ public class AlienControlador : MonoBehaviour
     public Vector2 direcao;
     //velocidade do Alien
     public float velocidade;
+    //velocidade do shot
+    public float velocidadeShot;
     //tempo para atirar novamente
     public float shotDelay;
     //ultimo shot
     public float ultimoShot = 0f;
+    //tempo que o alien leva para nascer novamente
+    public float tempoSpawn;
     //referenciar a posicao do player
     public Transform player;
     //pega o renderer do alien
@@ -26,21 +30,18 @@ public class AlienControlador : MonoBehaviour
     public bool desativado;
     //pontos para score
     public int pontos;
-    //tempo que o alien leva para nascer novamente
-    public float tempoSpawn;
-    //
-    float levelStartTime;
-    //
+    //level atual 
+    public int atualLevel = 0;
+    //posicao inicial do alien
     public Transform startPosition;
-    
+
 
     void Start()
     {
         //encontrando a posicao do player
         player = GameObject.FindWithTag("Player").transform;
-        levelStartTime = Time.time;
-        tempoSpawn = Random.Range(5f, 20f);
-        Invoke("Ativado", tempoSpawn);
+
+        NewLevel();
         Desativado();
     }
 
@@ -48,7 +49,7 @@ public class AlienControlador : MonoBehaviour
     {
         if (desativado)
         {
-            if(Time.time > levelStartTime + tempoSpawn)
+            if(Time.time > ultimoShot + tempoSpawn)
             {
                 Ativado();
             }
@@ -69,7 +70,19 @@ public class AlienControlador : MonoBehaviour
         direcao = (player.position - transform.position).normalized;
         body.MovePosition(body.position + direcao * velocidade * Time.deltaTime);
     }
-    void Ativado()
+
+    public void NewLevel()
+    {
+        Desativado();
+        atualLevel++;
+        tempoSpawn = Random.Range(5f, 20f);
+        Invoke("Ativado", tempoSpawn);
+        velocidade = atualLevel;
+        velocidadeShot = 250 * atualLevel;
+        pontos = 500 * atualLevel;
+    }
+
+    public void Ativado()
     {
         //ativar o alien na posicao inicial e ativar collider e sprite novamente
         transform.position = startPosition.position;
@@ -79,7 +92,7 @@ public class AlienControlador : MonoBehaviour
 
     }
 
-    void Desativado()
+    public void Desativado()
     {
         //desativar colliders e render
         collider.enabled = false;
@@ -97,6 +110,13 @@ public class AlienControlador : MonoBehaviour
             Desativado();
 
             
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.transform.CompareTag("Player")){
+            //desativar alien
+            Desativado();
         }
     }
 }

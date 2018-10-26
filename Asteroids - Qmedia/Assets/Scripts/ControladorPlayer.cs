@@ -12,6 +12,8 @@ public class ControladorPlayer : MonoBehaviour
     public GameObject shotEnable;
     //ativar painel de gameover
     public GameObject gameOverpainel;
+    //painel de novo High Score
+    public GameObject newHighScorePanel;
     //rigid body do player
     public Rigidbody2D body;
     //propulsao lateral do player
@@ -42,19 +44,27 @@ public class ControladorPlayer : MonoBehaviour
     public Text scoreText;
     //texto de vidas
     public Text vidasText;
+    //lista de highscore
+    public Text HighScoreListText;
     //audio player
     public AudioSource perdeVida;
     //hyperspace ativado ou nao
     private bool hyperspace;
-    
-    
+    //acessar o alien
+    public AlienControlador alien;
+    //game manager
+    public GameManager gm;
+    //player da input de nome
+    public InputField highScoreInput;
+
+
+
 
     // Use this for initialization
     void Start()
     {
         score = 0;
-        vidas = 250;
-
+        //score e vidas iniciais
         scoreText.text = "Score " + score;
         vidasText.text = "Vidas " + vidas;
     }
@@ -90,7 +100,7 @@ public class ControladorPlayer : MonoBehaviour
             {
                 shotEnable.SetActive(false);
             }
-            
+
 
         }
         if (Input.GetButtonDown("Hyperspace") && !hyperspace)
@@ -103,7 +113,6 @@ public class ControladorPlayer : MonoBehaviour
         //fazer a rotacao da nave
         transform.Rotate(Vector3.forward * InputLateral * Time.deltaTime * propulsaolateral);
         //criando nova posicao caso o player passe o limite
-
         Vector2 novaPos = transform.position;
         //se o player sumir do limite superior
         if (transform.position.y > fimTelaSup)
@@ -162,7 +171,7 @@ public class ControladorPlayer : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         perdeVida.Play();
-        if(col.relativeVelocity.magnitude > Astforce)
+        if (col.relativeVelocity.magnitude > Astforce)
         {
             PerderVida();
         }
@@ -172,12 +181,32 @@ public class ControladorPlayer : MonoBehaviour
         if (other.CompareTag("Alienshot"))
         {
             PerderVida();
+            alien.Desativado();
         }
     }
     void GameOver()
     {
-        //aparecer a tela para reiniciar
+        //verificar o highscore
+        if (gm.CheckforHighScores(score))
+        {
+            newHighScorePanel.SetActive(true);
+        }
+        else
+        {
+            //aparecer a tela para reiniciar
+            gameOverpainel.SetActive(true);
+            HighScoreListText.text = "HIGH SCORE" + "\n" + PlayerPrefs.GetString("highScoreName") + " " + PlayerPrefs.GetInt("highscore");
+        }
+
+    }
+    public void HighScoreInput()
+    {
+        string newInput = highScoreInput.text;
+        newHighScorePanel.SetActive(false);
         gameOverpainel.SetActive(true);
+        PlayerPrefs.SetString("highScoreName", newInput);
+        PlayerPrefs.SetInt("highScore", score);
+        HighScoreListText.text = "HIGH SCORE" + "\n" + PlayerPrefs.GetString("highScoreName")+ " " + PlayerPrefs.GetInt("highscore");
     }
     public void JogarNovamente()
     {
@@ -185,6 +214,6 @@ public class ControladorPlayer : MonoBehaviour
     }
     public void Menu()
     {
-
+        SceneManager.LoadScene("Start Menu");
     }
 }

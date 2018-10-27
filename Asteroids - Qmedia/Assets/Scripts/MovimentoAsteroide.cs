@@ -31,6 +31,8 @@ public class MovimentoAsteroide : MonoBehaviour
     public Rigidbody2D bodyAst;
     //gm do jogo
     public GameManager gm;
+    //teste gameobj do asteroide desativar
+    public GameObject asteroideGrande;
 
 
     void Start()
@@ -84,25 +86,30 @@ public class MovimentoAsteroide : MonoBehaviour
                 GameObject asteroid1 = Instantiate(asteroideMedio, transform.position, transform.rotation);
                 GameObject asteroid2 = Instantiate(asteroideMedio, transform.position, transform.rotation);
                 gm.UpdateQtdAsteroides(1);
+                asteroideGrande.SetActive(false);
                 //esconder o asteroide maior
+
             }
             if (asteroidetamanho == 2)
             {
                 //criar asteroides medios
-                GameObject asteroid1 = Instantiate(asteroideMedio, transform.position, transform.rotation);
-                GameObject asteroid2 = Instantiate(asteroideMedio, transform.position, transform.rotation);
+                GameObject asteroid1 = Instantiate(asteroidePequeno, transform.position, transform.rotation);
+                GameObject asteroid2 = Instantiate(asteroidePequeno, transform.position, transform.rotation);
+                asteroideMedio.SetActive(false);
                 gm.UpdateQtdAsteroides(1);
                 //Invoke(, 1f);
                 //esconder asteroide medio
-                Destroy(this.gameObject);
+                
             }
             if (asteroidetamanho == 1)
             {
                 //remover os asteroides
+                asteroidePequeno.SetActive(false);
                 gm.UpdateQtdAsteroides(1);
             }
             //pontos para player
             player.SendMessage("ScorePoints", pontos);
+            
 
             //remover o asteroide
         }

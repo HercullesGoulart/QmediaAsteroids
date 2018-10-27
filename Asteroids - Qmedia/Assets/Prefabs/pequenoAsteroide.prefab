@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 114924105263916784}
   m_Layer: 0
   m_Name: pequenoAsteroide
-  m_TagString: Untagged
+  m_TagString: Asteroide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,6 +384,8 @@ MonoBehaviour:
   impulsoAst: 1000
   torqueAst: 1000
   bodyAst: {fileID: 50298794379611720}
+  gm: {fileID: 0}
+  asteroideGrande: {fileID: 0}
 --- !u!212 &212299348278310044
 SpriteRenderer:
   m_ObjectHideFlags: 1

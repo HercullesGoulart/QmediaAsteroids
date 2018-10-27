@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ControladorPlayer : MonoBehaviour
 {
@@ -40,6 +39,8 @@ public class ControladorPlayer : MonoBehaviour
     public int score;
     //vidas do player
     public int vidas;
+    //numero de balas na lista
+    public int numeroBullets;
     //texto de pontuacao
     public Text scoreText;
     //texto de vidas
@@ -48,14 +49,14 @@ public class ControladorPlayer : MonoBehaviour
     public Text HighScoreListText;
     //audio player
     public AudioSource perdeVida;
-    //hyperspace ativado ou nao
-    private bool hyperspace;
     //acessar o alien
     public AlienControlador alien;
     //game manager
     public GameManager gm;
     //player da input de nome
     public InputField highScoreInput;
+    //lista do shot
+    List<Rigidbody2D> bulletRigidBodyList;
 
 
 
@@ -63,6 +64,15 @@ public class ControladorPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        bulletRigidBodyList = new List<Rigidbody2D>();
+        for (int i = 0; i < numeroBullets; i++)
+        {
+            Rigidbody2D objbullet = ((Rigidbody2D)Instantiate(shot).GetComponent<Rigidbody2D>());
+            objbullet.gameObject.SetActive(false);
+            bulletRigidBodyList.Add(objbullet);
+        }
+
+
         score = 0;
         //score e vidas iniciais
         scoreText.text = "Score " + score;
@@ -76,42 +86,8 @@ public class ControladorPlayer : MonoBehaviour
         InputPropulsao = Input.GetAxis("Vertical");
         InputLateral = Input.GetAxis("Horizontal");
 
-        //adicionar botao para atirar
-        if (Input.GetButtonDown("Fire1"))
-        {
-            //instanciando o shot na posicao do player e dando direcao
-            GameObject novoShot = Instantiate(shot, transform.position, transform.rotation);
-            novoShot.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * shotForce);
-            //shot desaparece e reutiliza
-            if (transform.position.y > fimTelaSup)
-            {
-                shotEnable.SetActive(false);
-                Debug.Log("saiu o tiro");
-            }
-            if (transform.position.y < fimTelaInf)
-            {
-                shotEnable.SetActive(false);
-            }
-            if (transform.position.x > fimTelaEsq)
-            {
-                shotEnable.SetActive(false);
-            }
-            if (transform.position.x < fimTelaDir)
-            {
-                shotEnable.SetActive(false);
-            }
-
-
-        }
-        if (Input.GetButtonDown("Hyperspace") && !hyperspace)
-        {
-            hyperspace = true;
-            //desligar colliders e desativar player
-            Invoke("Hyperspace", 1f);
-        }
-
         //fazer a rotacao da nave
-        transform.Rotate(Vector3.forward * InputLateral * Time.deltaTime * propulsaolateral);
+        transform.Rotate(Vector2.up * InputLateral * Time.deltaTime * propulsaolateral);
         //criando nova posicao caso o player passe o limite
         Vector2 novaPos = transform.position;
         //se o player sumir do limite superior
@@ -132,8 +108,25 @@ public class ControladorPlayer : MonoBehaviour
             novaPos.x = fimTelaEsq;
         }
         transform.position = novaPos;
-
-
+        //adicionar botao para atirar
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Fire();
+        }
+    }
+    void Fire()
+    {
+        //metodo pooling usando a lista
+        for (int i = 0; i < bulletRigidBodyList.Count; i++)
+        {
+            if (!bulletRigidBodyList[i].gameObject.activeInHierarchy)
+            {
+                ResetObj(bulletRigidBodyList[i]);
+                bulletRigidBodyList[i].gameObject.SetActive(true);
+                bulletRigidBodyList[i].AddRelativeForce(Vector2.up * shotForce);
+                break;
+            }
+        }
 
     }
     void FixedUpdate()
@@ -141,21 +134,12 @@ public class ControladorPlayer : MonoBehaviour
         //arrasto do player para direcao que estava
         body.AddRelativeForce(Vector2.up * InputPropulsao);
         // giro do player
-        //body.AddTorque(-InputLateral);
+        body.AddTorque(-InputLateral);
     }
     void ScorePoints(int pointsToAdd)
     {
         score += pointsToAdd;
         scoreText.text = "Score " + score;
-    }
-    void Hyperspace()
-    {
-        Vector2 newPosition = new Vector2(Random.Range(-8, +8), Random.Range(-5, 5));
-        transform.position = newPosition;
-        //ativar collider e objeto aqui
-
-
-
     }
     void PerderVida()
     {
@@ -178,10 +162,9 @@ public class ControladorPlayer : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Alienshot"))
+        if (other.CompareTag("AlienShot"))
         {
             PerderVida();
-            alien.Desativado();
         }
     }
     void GameOver()
@@ -197,6 +180,7 @@ public class ControladorPlayer : MonoBehaviour
             gameOverpainel.SetActive(true);
             HighScoreListText.text = "HIGH SCORE" + "\n" + PlayerPrefs.GetString("highScoreName") + " " + PlayerPrefs.GetInt("highscore");
         }
+        gameObject.SetActive(false);
 
     }
     public void HighScoreInput()
@@ -206,14 +190,11 @@ public class ControladorPlayer : MonoBehaviour
         gameOverpainel.SetActive(true);
         PlayerPrefs.SetString("highScoreName", newInput);
         PlayerPrefs.SetInt("highScore", score);
-        HighScoreListText.text = "HIGH SCORE" + "\n" + PlayerPrefs.GetString("highScoreName")+ " " + PlayerPrefs.GetInt("highscore");
+        HighScoreListText.text = "HIGH SCORE" + "\n" + PlayerPrefs.GetString("highScoreName") + " " + PlayerPrefs.GetInt("highscore");
     }
-    public void JogarNovamente()
+    private void ResetObj(Rigidbody2D ResetarObj)
     {
-        SceneManager.LoadScene("QmediaAsteroids");
-    }
-    public void Menu()
-    {
-        SceneManager.LoadScene("Start Menu");
+        ResetarObj.transform.position = transform.position;
+        ResetarObj.transform.rotation = transform.rotation;
     }
 }

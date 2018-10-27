@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AlienControlador.cs" />
+    <Compile Include="Assets\Scripts\CenasControlador.cs" />
     <Compile Include="Assets\Scripts\ControladorPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MovimentoAsteroide.cs" />

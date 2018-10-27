@@ -1,0 +1,7 @@
+Asteroids
+1 - Script player
+Ele atira
+Ele se movimenta
+Ele soma pontos
+Ele perde vida se encontar em alien ou asteroide ou tiro
+quando acabam as vidas abre menu de jogar de novo, ir ao menu e HighScore

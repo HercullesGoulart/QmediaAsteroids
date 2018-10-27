@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 114924105263916784}
   m_Layer: 0
   m_Name: medioAsteroide
-  m_TagString: Untagged
+  m_TagString: Asteroide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
   asteroideMedio: {fileID: 1482960044616764}
   asteroidePequeno: {fileID: 1482960044616764, guid: f3a4c6caf2e832a44b09882d81d2a70f,
     type: 2}
-  player: {fileID: 0}
+  player: {fileID: 1466855889401154, guid: 970f8bda6f2e95040919bb560abf1f5b, type: 2}
   asteroidetamanho: 2
   pontos: 45
   fimTelaSup: 8.6
@@ -384,6 +384,9 @@ MonoBehaviour:
   impulsoAst: 1000
   torqueAst: 1000
   bodyAst: {fileID: 50298794379611720}
+  gm: {fileID: 0}
+  asteroideGrande: {fileID: 1593278784793188, guid: 59fbf9e68103ffb40b157f470f88bb8e,
+    type: 2}
 --- !u!212 &212299348278310044
 SpriteRenderer:
   m_ObjectHideFlags: 1

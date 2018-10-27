@@ -40,11 +40,11 @@ GameObject:
   - component: {fileID: 58697423163025042}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4461182410600092
 Transform:
   m_ObjectHideFlags: 1
@@ -86,7 +86,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -118,9 +118,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ecc50a9146f6f43badc92b182cb3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 1416669503462166, guid: 42eedfa7aa62dd844bc9b255ec09c088, type: 2}
   body: {fileID: 50897661507321574}
   direcao: {x: 0, y: 0}
-  velocidade: 0
+  velocidade: 1
+  velocidadeShot: 250
+  shotDelay: 1
+  ultimoShot: 3
+  tempoSpawn: 10.421521
+  player: {fileID: 0}
+  spriteRenderer: {fileID: 212495671471978406}
+  collider: {fileID: 58697423163025042}
+  desativado: 1
+  pontos: 500
+  atualLevel: 1
+  startPosition: {fileID: 0}
 --- !u!212 &212495671471978406
 SpriteRenderer:
   m_ObjectHideFlags: 1

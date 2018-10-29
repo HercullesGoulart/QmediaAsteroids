@@ -91,9 +91,8 @@ public class PlayerController : MonoBehaviour
         //criar a movimentacao do player
         InputPropulsao = Input.GetAxis("Vertical");
         InputLateral = Input.GetAxis("Horizontal");
-
-        //fazer a rotacao da nave
-        transform.Rotate(Vector2.up * InputLateral * Time.deltaTime * propulsaolateral);
+        //fazer a rotacao do player
+        transform.Rotate(Vector3.forward * InputLateral * Time.deltaTime * propulsaolateral);
         //criando nova posicao caso o player passe o limite
         Vector2 novaPos = transform.position;
         //se o player sumir do limite superior e limitando a player a se manter na area da camera

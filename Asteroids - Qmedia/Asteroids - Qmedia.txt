@@ -1,7 +1,33 @@
 Asteroids
-1 - Script player
+
+Scene "Menu"
+1 - Jogar
+Botao jogar inicia a proxima cena   
+Cenario Asteroids
+
+Scene "QmediaAsteroids"
+1 - Player
 Ele atira
 Ele se movimenta
 Ele soma pontos
 Ele perde vida se encontar em alien ou asteroide ou tiro
 quando acabam as vidas abre menu de jogar de novo, ir ao menu e HighScore
+2 - Asteroids
+Eles se movimentam
+Ficam sempre dentro da area da camera
+se destruido, se divide em dois menores, que se destruidos desaparecem
+eles tem massa
+3 - Alien
+Ele se movimenta seguindo o player
+Ele atira em direcao ao player
+Ele tem um sistema de spawn
+Se colidir com player ele e desabilitado
+4 - Pool System
+Foi usado nos tiros, se eles saem da area da camera sao desabilitados e reutilizados
+Todas as balas sao criadas no Start ja alocando parte da memoria
+5 - Game Manager
+Sistema de niveis
+Sistema de High Score
+Spawn de Asteroides
+
+

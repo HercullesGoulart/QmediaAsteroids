@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: c1c39d40aa8113b46a9d3fdc18e55892
+  - enabled: 1
     path: Assets/Scenes/QmediaAsteroids.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

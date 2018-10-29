@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CenasControlador : MonoBehaviour
 {
-
+    //Funcionalidade nos botoes para navegar entre nos menus
     public void Jogar()
     {
         SceneManager.LoadScene("QmediaAsteroids");
@@ -13,5 +13,9 @@ public class CenasControlador : MonoBehaviour
     public void Menu()
     {
         SceneManager.LoadScene("Menu");
+    }
+    public void Fechar()
+    {
+        Application.Quit();
     }
 }

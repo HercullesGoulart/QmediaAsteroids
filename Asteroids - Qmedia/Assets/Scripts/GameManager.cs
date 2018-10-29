@@ -13,14 +13,11 @@ public class GameManager : MonoBehaviour {
     //linkar alien
     public AlienControlador alien;
 
-
-
     public void UpdateQtdAsteroides(int change)
     {
         //aumenta a qnt asteroides
         qtdAsteroides += change;
 
-        
         if(qtdAsteroides <= 0)
         {
             Invoke("StartNewLevel", 2f);
@@ -33,7 +30,7 @@ public class GameManager : MonoBehaviour {
         //criar novos asteroides
         for(int i = 0; i < level*2; i++)
         {
-            Vector2 spawnPosition = new Vector2(Random.Range(-8.5f, 8.5f), 12f);
+            Vector2 spawnPosition = new Vector2(Random.Range(-8.5f, 8.5f), 11f);
             Instantiate(asteroid, spawnPosition, Quaternion.identity);
             qtdAsteroides++;
         }

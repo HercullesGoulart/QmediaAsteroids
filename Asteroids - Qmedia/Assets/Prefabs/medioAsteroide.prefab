@@ -144,9 +144,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4957517453382194}
+  - component: {fileID: 114924105263916784}
   - component: {fileID: 50298794379611720}
   - component: {fileID: 60839987883849208}
-  - component: {fileID: 114924105263916784}
+  - component: {fileID: 212367857200383878}
   m_Layer: 0
   m_Name: medioAsteroide
   m_TagString: Asteroide
@@ -297,7 +298,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482960044616764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 1.13, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4582486584866444}
@@ -374,19 +375,17 @@ MonoBehaviour:
   asteroideMedio: {fileID: 1482960044616764}
   asteroidePequeno: {fileID: 1482960044616764, guid: f3a4c6caf2e832a44b09882d81d2a70f,
     type: 2}
-  player: {fileID: 1466855889401154, guid: 970f8bda6f2e95040919bb560abf1f5b, type: 2}
   asteroidetamanho: 2
-  pontos: 45
+  impulsoAst: 100
+  torqueAst: 20
+  bodyAst: {fileID: 50298794379611720}
   fimTelaSup: 8.6
   fimTelaEsq: 8.5
   fimTelaDir: -8.5
   fimTelaInf: -5.5
-  impulsoAst: 1000
-  torqueAst: 1000
-  bodyAst: {fileID: 50298794379611720}
-  gm: {fileID: 0}
-  asteroideGrande: {fileID: 1593278784793188, guid: 59fbf9e68103ffb40b157f470f88bb8e,
-    type: 2}
+  player: {fileID: 1466855889401154, guid: 970f8bda6f2e95040919bb560abf1f5b, type: 2}
+  pontos: 45
+  gm: {fileID: 114986686728208982, guid: d8ae26ce334a0a845adeca1a5d314666, type: 2}
 --- !u!212 &212299348278310044
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -431,6 +430,52 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!212 &212367857200383878
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1482960044616764}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212622318272850268

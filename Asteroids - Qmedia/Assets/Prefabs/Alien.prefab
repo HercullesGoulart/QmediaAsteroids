@@ -36,8 +36,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1547196602978786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.58, y: 3.65, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,24 +89,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ecc50a9146f6f43badc92b182cb3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1416669503462166, guid: 42eedfa7aa62dd844bc9b255ec09c088, type: 2}
   body: {fileID: 50334551065520578}
   direcao: {x: 0, y: 0}
-  velocidade: 0.5
-  velocidadeShot: 250
-  shotDelay: 1
-  ultimoShot: 1
-  tempoSpawn: 10.421521
-  player: {fileID: 0}
-  spriteRenderer: {fileID: 212758578405704140}
-  collider: {fileID: 58821862645352114}
+  velocidade: 2
+  tempoSpawn: 15.135262
+  spriteRendererAlien: {fileID: 212758578405704140}
+  colliderAlien: {fileID: 58821862645352114}
   desativado: 0
-  pontos: 500
-  atualLevel: 1
-  startPosition: {fileID: 0}
-  numeroBullets: 20
-  shot: {fileID: 1416669503462166, guid: 42eedfa7aa62dd844bc9b255ec09c088, type: 2}
-  shotForce: 150
+  startPosition: {fileID: 4968897922893154, guid: 75a54387ae49b3f4ba74548eb653c19a,
+    type: 2}
+  bullet: {fileID: 1576801394209488, guid: 9b7e11b74f1db73488dcab7ee3433ffc, type: 2}
+  player: {fileID: 4372857533321002, guid: 970f8bda6f2e95040919bb560abf1f5b, type: 2}
+  pontos: 1000
+  atualLevel: 2
 --- !u!212 &212758578405704140
 SpriteRenderer:
   m_ObjectHideFlags: 1
